@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    title: 'Flutter Tutorial',
-    home: MainApp(),
-  ));
+  runApp(
+    MaterialApp(
+      title: 'Pokedex App',
+      home: const MainApp(),
+      theme: ThemeData(primarySwatch: Colors.red),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -12,6 +16,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pokedex App'),
+      ),
+    );
   }
 }
