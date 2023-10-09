@@ -32,24 +32,25 @@ class Homescreen extends StatelessWidget {
                 ),
               ),
             ),
-            const HomeAppbar(),
-            Container(),
-            Expanded(
-              child: Container(
-                child: ListView(
-                  children: [
-                    ListTile(
-                      title: Text(
-                        'Pokemon',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold,
+            Column(
+              children: [
+                const HomeAppbar(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          'Pokemon',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),
