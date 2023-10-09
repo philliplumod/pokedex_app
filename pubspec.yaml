@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   cached_network_image: ^3.3.0
+  dev: ^1.0.0
   flutter:
     sdk: flutter
   flutter_mobx: ^2.1.0
@@ -24,6 +25,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  mobx_codegen:
+  build_runner:
+  
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/pokeball_dark.png
+    - assets/images/pokeball.png
