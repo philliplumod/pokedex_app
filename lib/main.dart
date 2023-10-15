@@ -5,7 +5,7 @@ void main() {
   runApp(
     MaterialApp(
       title: 'Pokedex App',
-      home: const Homescreen(),
+      home: const HomeScreen(),
       theme: ThemeData(primarySwatch: Colors.red),
       debugShowCheckedModeBanner: false,
     ),

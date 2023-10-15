@@ -1,59 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:pokedex_app/screens/widgets/home_appbar.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pokedex_app/models/pokeapi.dart';
+import 'package:pokedex_app/services/pokeapi_store.dart';
 
-import '../../const/const_app.dart';
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
-class Homescreen extends StatelessWidget {
-  const Homescreen({super.key});
+  @override
+  HomeScreenState createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  late PokeApiStore pokeApiStore;
+  @override
+  void initState() {
+    super.initState();
+    pokeApiStore = PokeApiStore();
+    pokeApiStore.fetchPokemonList(); // call the fetchPokemonList() method
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double statusWidth = MediaQuery.of(context).padding.top;
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          alignment: Alignment.topCenter,
-          clipBehavior: Clip.none,
-          children: [
-            Positioned(
-              top: -(240 / 3),
-              left: screenWidth - (240 / 1.85),
-              child: Opacity(
-                opacity: 0.1,
-                child: Image.asset(
-                  ConstApp.blackPokeball,
-                  height: 210,
-                  width: 210,
-                ),
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pokedex'),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.black,
             ),
-            Column(
-              children: [
-                const HomeAppbar(),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          'Pokemon',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
+            onPressed: () {},
+          )
+        ],
       ),
+      body: Observer(
+          name: 'ListPokeApi',
+          builder: (context) {
+            PokeApi pokeApi = pokeApiStore.pokeApi;
+            return ListView.builder(
+              itemCount: pokeApi.pokemon!.length,
+              itemBuilder: (context, index) {
+                Pokemon pokemon = pokeApi.pokemon![index];
+                return ListTile(
+                  title: Text(pokemon.name ?? 'Unknown'),
+                  // Display additional information as needed
+                  subtitle: Text('ID: ${pokemon.id}'),
+                  leading: Image.network(pokemon.img ?? ''),
+                  // Add more widgets to display other details
+                );
+              },
+            );
+          }),
     );
   }
 }
